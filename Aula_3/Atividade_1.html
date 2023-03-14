@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordenar Array</title>
+</head>
+
+<body>
+    <h1>Ordenar vetor</h1>
+
+
+    <div id="app">
+        <input type="text" id="btn" name="nome" value = ''>
+        <button onClick="adicionar()">Adicionar</button>
+
+
+        <ul id="lista">
+
+        </ul>
+
+    </div>
+
+    <script>
+        let nomes = []
+        
+        
+        function adicionar() {
+
+            let text = document.getElementById('btn')
+            let conteudo = text.value
+            nomes.push(conteudo)
+            nomes.sort()
+
+            let lista = document.querySelector('#lista')
+            lista.innerHTML = '';
+            for (let i = 0; i < nomes.length; i++) {
+
+                let item = document.createElement('li')
+                item.appendChild(document.createTextNode(nomes[i]));
+                lista.appendChild(item)
+
+            }
+        }
+
+    </script>
+</body>
+
+</html>

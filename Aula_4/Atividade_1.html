@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lista de Tarefas</title>
+</head>
+<body>
+	<h1>Lista de Tarefas</h1>
+	<input type="text" id="tarefaInput">
+	<button onclick="adicionarTarefa()">Adicionar Tarefa</button>
+	<ul id="listaTarefas">
+	</ul>
+
+	<script>
+		let tarefas = [];
+
+		function adicionarTarefa() {
+			const tarefaInput = document.getElementById("tarefaInput");
+			const listaTarefas = document.getElementById("listaTarefas");
+
+			if (tarefaInput.value !== "") {
+				const tarefa = tarefaInput.value;
+				tarefas.push(tarefa);
+				tarefaInput.value = "";
+
+				exibirTarefas();
+			}
+		}
+
+		function removerTarefa(index) {
+			tarefas.splice(index, 1);
+			exibirTarefas();
+		}
+
+		function moverParaCima(index) {
+			if (index > 0) {
+				const temp = tarefas[index];
+				tarefas[index] = tarefas[index-1];
+				tarefas[index-1] = temp;
+
+				exibirTarefas();
+			}
+		}
+
+		function moverParaBaixo(index) {
+			if (index < tarefas.length - 1) {
+				const temp = tarefas[index];
+				tarefas[index] = tarefas[index+1];
+				tarefas[index+1] = temp;
+
+				exibirTarefas();
+			}
+		}
+
+		function exibirTarefas() {
+			const listaTarefas = document.getElementById("listaTarefas");
+			listaTarefas.innerHTML = "";
+
+			for (let i = 0; i < tarefas.length; i++) {
+				const tarefa = tarefas[i];
+
+				const itemLista = document.createElement("li");
+				itemLista.innerText = tarefa;
+
+				const botaoRemover = document.createElement("button");
+				botaoRemover.innerText = "Remover";
+				botaoRemover.onclick = function() { removerTarefa(i) };
+
+				const botaoCima = document.createElement("button");
+				botaoCima.innerText = "▲";
+				botaoCima.onclick = function() { moverParaCima(i) };
+
+				const botaoBaixo = document.createElement("button");
+				botaoBaixo.innerText = "▼";
+				botaoBaixo.onclick = function() { moverParaBaixo(i) };
+
+				itemLista.appendChild(botaoRemover);
+				itemLista.appendChild(botaoCima);
+				itemLista.appendChild(botaoBaixo);
+
+				listaTarefas.appendChild(itemLista);
+			}
+		}
+	</script>
+</body>
+</html>
